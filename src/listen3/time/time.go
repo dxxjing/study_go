@@ -5,6 +5,17 @@ import (
 	"time"
 )
 
+//获取代码执行时间 单位 us 微秒
+func testCost(){
+	start := time.Now().UnixNano()
+	for i := 0; i < 10; i++ {
+		time.Sleep(time.Millisecond)
+	}
+	end := time.Now().UnixNano()
+	cost := (end - start) / 1000 //纳秒转为微秒
+	fmt.Printf("cost %v us \n",cost)
+}
+
 func work(){
 	fmt.Println("task work:")
 }
@@ -36,12 +47,14 @@ func main(){
 	//tickTask()
 	//tickTaskV2()
 
+	testCost()
+
 	//特殊点 格式化时间
-	now := time.Now()
+	curTime := time.Now()
 	//这里的年月日时分秒 必须是以下的时间 否则会有问题
-	timeFormat := now.Format("2006-01-02 15:04:05") 
+	timeFormat := curTime.Format("2006-01-02 15:04:05") 
 	fmt.Printf("format:%v \n",timeFormat) //2019-08-26 12:48:13
-	timeFormat = now.Format("2009-01-02 15:04:05") 
+	timeFormat = curTime.Format("2009-01-02 15:04:05") 
 	fmt.Printf("format:%v \n",timeFormat) //26009-08-26 12:48:13  错误
 
 }
