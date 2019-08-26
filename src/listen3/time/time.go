@@ -52,8 +52,10 @@ func main(){
 	//特殊点 格式化时间
 	curTime := time.Now()
 	//这里的年月日时分秒 必须是以下的时间 否则会有问题
+	//2006-01-02 15:04:05 是go语言诞生的时间点
 	timeFormat := curTime.Format("2006-01-02 15:04:05") 
 	fmt.Printf("format:%v \n",timeFormat) //2019-08-26 12:48:13
+	//修改任何一个都会返回格式化错误的时间
 	timeFormat = curTime.Format("2009-01-02 15:04:05") 
 	fmt.Printf("format:%v \n",timeFormat) //26009-08-26 12:48:13  错误
 
