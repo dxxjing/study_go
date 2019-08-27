@@ -11,6 +11,15 @@ func createSlice(){
 	fmt.Println(s) //[1,0,0,0,0]
 }
 
+//切片是引用传递
+func modifySlice(s []int){
+	s[0] = 100
+}
+
 func main(){
-	createSlice()
+	//createSlice()
+
+	s := []int{1,2,3,4}
+	modifySlice(s)
+	fmt.Println(s) 
 }
