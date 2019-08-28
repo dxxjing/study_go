@@ -40,8 +40,10 @@ func sortMap(){
 		s = append(s,k)
 	}
 	fmt.Println(s) //[b,a,c]
-	//sort.Sort(strSlice(s))
-	sort.Sort(sort.StringSlice(s)) //将s 强转为sort.StringSlice 类型
+	//方法一
+	//sort.Sort(sort.StringSlice(s)) //将s 强转为sort.StringSlice 类型
+	//方法二
+	sort.StringSlice(s).Sort()
 	fmt.Println(s) //[c,b,a]
 	newM := make(map[string]int,10)
 	for _,v := range s {
