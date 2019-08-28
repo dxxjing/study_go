@@ -48,7 +48,7 @@ func genPassword() string {
 	}
 	newStrLen := len(newStr)
 	for i := 0; i < pwdLength; i++ {
-		index := rand.Intn(newStrLen)
+		index := rand.Intn(newStrLen) //返回一个取值范围在[0,newStrLen)的伪随机int值
 		pwdSlice[i] = newStr[index]
 	}
 	return string(pwdSlice)
@@ -60,7 +60,7 @@ func main(){
 	//命令：generatePwd.exe -l 64 -t char
 	fmt.Printf("pwdLength:%d,pwdType:%s \n",pwdLength,pwdType)
 
-	//随机数种子
+	//随机数种子 否则会产生重复的随机数
 	rand.Seed(time.Now().UnixNano())
 	pwd := genPassword()
 	fmt.Printf("gen pwd %s \n",pwd)
