@@ -49,7 +49,9 @@ func sortMap(){
 	//方法一
 	//sort.Sort(sort.StringSlice(s)) //将s 强转为sort.StringSlice 类型
 	//方法二
-	sort.StringSlice(s).Sort()
+	//sort.StringSlice(s).Sort()
+	//方法三
+	sort.Strings(s) 
 
 	//降序：
 	//sort.Sort(sort.Reverse(sort.StringSlice(s)))
