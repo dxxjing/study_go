@@ -40,10 +40,20 @@ func sortMap(){
 		s = append(s,k)
 	}
 	fmt.Println(s) //[b,a,c]
+	//sort包排序默认递增 若要递减 则使用 func Reverse(data Interface) Interface
+	/*
+		s := []int{5, 2, 6, 3, 1, 4} // unsorted
+		sort.Sort(sort.Reverse(sort.IntSlice(s)))
+		fmt.Println(s)
+	*/
 	//方法一
 	//sort.Sort(sort.StringSlice(s)) //将s 强转为sort.StringSlice 类型
 	//方法二
 	sort.StringSlice(s).Sort()
+
+	//降序：
+	//sort.Sort(sort.Reverse(sort.StringSlice(s)))
+
 	fmt.Println(s) //[c,b,a]
 	newM := make(map[string]int,10)
 	for _,v := range s {
@@ -53,6 +63,15 @@ func sortMap(){
 
 }
 
+func testSort(){
+	//sort包 使用降序
+	s := []int{6,5,4,3,2,1} // unsorted
+	//s := []int{5, 2, 6, 3, 1, 4} // unsorted
+	sort.Sort(sort.Reverse(sort.IntSlice(s)))
+	fmt.Println(s)
+}
+
 func main(){
 	sortMap()
+	//testSort()
 }
