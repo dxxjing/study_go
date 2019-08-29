@@ -1,21 +1,14 @@
 package main
 
 import (
-	"flag"
 	"fmt"
+	"os"
 )
 /*
 实现简单的学生管理系统 每个学生有分数 年级 性别 姓名等字段，
 用户可以在控制台添加学生、修改学生信息、打印所有学生列表
  */
 
-var (
-	action string
-	pName string
-	pGrade string
-	pScore int
-	pSex int
-)
 
 
 type Student struct {
@@ -36,68 +29,66 @@ func NewStudent(name,grade string,score,sex int) *Student {
 	}
 }
 
+
 func (list *StuList) Add(name,grade string,score,sex int){
 	stu := NewStudent(name,grade,score,sex)
 	(*list)[name] = *stu
-}
-
-func (list *StuList) Edit(name,grade string,score,sex int){
-	if v,ok := (*list)[name];ok {
-		if grade != "" {
-			v.Grade = grade
-		}
-		if score != -1 {
-			v.Score = score
-		}
-		if sex != -1 {
-			v.Sex = sex
-		}
-		(*list)[name] = v
-	}else{
-		fmt.Println("the student not found")
-	}
-
 }
 
 func (list *StuList) Del(name string){
 	delete(*list,name)
 }
 
-func (list StuList) Show(){
-	for _,v := range list {
+func (list *StuList) Show(){
+	for _,v := range *list {
 		fmt.Printf("name:%s,sex:%d,grade:%s,score:%d \n",v.Name,v.Sex,v.Grade,v.Score)
 	}
 }
 
-func ParseFlag(){
-	flag.StringVar(&action,"a","show","add 添加 edit 修改 del 删除 show 展示 exit 退出")
-	flag.StringVar(&pName,"name","","姓名")
-	flag.StringVar(&pGrade,"grade","","年级")
-	flag.IntVar(&pScore,"score",-1,"分数")
-	flag.IntVar(&pSex,"sex",-1,"性别")
-	flag.Parse()
+func InputInfo()(string,string,int,int){
+	var(
+		name string
+		grade string
+		score int
+		sex int
+	)
+	fmt.Printf("请输入姓名:")
+	fmt.Scanf("%s\n",&name)
+	fmt.Printf("请输入年级[1-6]:")
+	fmt.Scanf("%s\n",&grade)
+	fmt.Printf("请输入分数[0-100]:")
+	fmt.Scanf("%d\n",&score)
+	fmt.Printf("请输入性别[0|1]:")
+	fmt.Scanf("%d\n",&sex)
+	return name,grade,score,sex
+}
+
+func ShowMenu(){
+	fmt.Printf("请输入：")
+	fmt.Printf("1 列表，2 添加,3 修改，4 删除,5 退出 \n")
 }
 
 func main(){
-	ParseFlag()
-
+	var num int
 	var list StuList
 	list = make(StuList,100)
+
 	for {
-		switch action {
-		case "show":
+		ShowMenu()
+		fmt.Scanf("%d\n",&num)
+		switch num {
+		case 1:
 			list.Show()
-		case "add":
-			list.Add(pName,pGrade,pScore,pSex)
-			list.Show()
-		case "edit":
-			list.Edit(pName,pGrade,pScore,pSex)
-			list.Show()
-		case "del":
-			list.Del(pName)
-			list.Show()
-		case "exit":
-			break
+		case 2,3:
+			name,grade,score,sex := InputInfo()
+			list.Add(name,grade,score,sex)
+		case 4:
+			var name string
+			fmt.Printf("请输入姓名:")
+			fmt.Scanf("%s\n",&name)
+			list.Del(name)
+		case 5:
+			os.Exit(0) //退出
 		default:
 			list.Show()
 		}

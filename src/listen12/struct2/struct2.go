@@ -89,6 +89,14 @@ type User4 struct {
 	addr *Address
 }
 
+func modify4_1(u User4){
+	u.Name = "new"
+	u.addr.City = "界首"
+}
+func modify4_2(u *User4){
+	u.Name = "new"
+	u.addr.City = "界首"
+}
 
 func user4Test(){
 	u := User4{
@@ -103,6 +111,14 @@ func user4Test(){
 
 	//访问字段
 	fmt.Println(u.addr.City,u.addr.Province)//合肥 安徽
+	//结构体是值传递 所以name 没有改变
+	modify4_1(u)
+	fmt.Println(u.addr.City,u.Name)//界首 jdx
+	//传入地址 改变name
+	modify4_2(&u)
+	fmt.Println(u.addr.City,u.Name)//界首 new
+
+
 }
 
 type User5 struct{
@@ -132,15 +148,27 @@ func user5Test(){
 	//{1 jdx 0xc000004440}
 	//嘉定 上海
 
-	// 不能使用以下方式初始化 匿名结构体指针的字段名 不知如何设置
-	/*u2 := User5{
+	// 初始化匿名结构体指针必须 以指针的形式初始化
+	/*错误方式
+	u2 := User5{
+			ID:1,
+			Name:"jdx",
+			Address:&Address{
+				Province:"安徽",
+				City:"合肥",
+			},
+		}
+	*/
+	u2 := &User5{
 		ID:1,
 		Name:"jdx",
-		(*Address):&Address{
+		Address:&Address{
 			Province:"安徽",
 			City:"合肥",
 		},
-	}*/
+	}
+	fmt.Println(u2)//&{1 jdx 0xc0000504a0}
+
 }
 
 type Stu struct {
@@ -191,7 +219,7 @@ func main(){
 	//user2Test()
 	//user3Test()
 	//user4Test()
-	//user5Test()
+	user5Test()
 	//user6Test()
-	user7Test()
+	//user7Test()
 }
