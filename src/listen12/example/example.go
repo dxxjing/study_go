@@ -36,7 +36,6 @@ func NewStudent(name,grade string,score,sex int) *Student {
 	}
 }
 
-//以name 作为key 若存在就会被覆盖  所以该方法 既为添加 也为修改
 func (list *StuList) Add(name,grade string,score,sex int){
 	stu := NewStudent(name,grade,score,sex)
 	(*list)[name] = *stu
