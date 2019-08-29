@@ -18,7 +18,7 @@ type Student struct {
 	Sex int
 }
 //采用map存储
-type StuList map[string]Student //key 为 name
+type StuList map[string]*Student //key 为 name
 
 func NewStudent(name,grade string,score,sex int) *Student {
 	return &Student{
@@ -32,7 +32,7 @@ func NewStudent(name,grade string,score,sex int) *Student {
 
 func (list *StuList) Add(name,grade string,score,sex int){
 	stu := NewStudent(name,grade,score,sex)
-	(*list)[name] = *stu
+	(*list)[name] = stu
 	//(*list)[name].Name = name
 }
 
