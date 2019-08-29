@@ -6,7 +6,24 @@ import (
 
 //证明 结构体是值传递  map、slice 是引用传递
 //test3 test4 说明若切片、map 含有结构体 尽量都是用指针 []*User map[string]*User
+//即切片、map的值 存结构体的地址 而非值
 //否则会产生不必要的麻烦
+/*
+func update8(m map[string]User){
+	m["jdx"].Name = "tom" //cannot assign to m["jdx"].Name
+}
+
+func test8(){
+	//如果想要修改map 中的User 成员 map的值必须为*User
+	//原因是结构体是值传递
+	//
+	m := make(map[string]User)
+	m["jdx"] = User{ID:1,Name:"jdx"}
+	update2(m)
+	fmt.Println(m["jdx"])//&{1 tom}
+
+ */
+
 
 type User struct {
 	ID int
@@ -50,7 +67,7 @@ func update2(m map[string]*User){
 }
 
 func test3(){
-	//如果想要修改map 中的User 成员 map的值必须为*User
+	//如果想要修改map中的User成员 map的值必须为*User
 	//原因是结构体是值传递
 	//
 	m := make(map[string]*User)
