@@ -33,6 +33,7 @@ func NewStudent(name,grade string,score,sex int) *Student {
 func (list *StuList) Add(name,grade string,score,sex int){
 	stu := NewStudent(name,grade,score,sex)
 	(*list)[name] = *stu
+	//(*list)[name].Name = name
 }
 
 func (list *StuList) Del(name string){
