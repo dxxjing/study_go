@@ -24,7 +24,7 @@ func (s *Stack) Pop() (ret string, err error) {
 	ret = s.data[s.top]
 	return
 }
-
+//查看栈顶元素 但不取出
 func (s *Stack) Top() (ret string, err error) {
 	if s.top == 0 {
 		err = fmt.Errorf("stack is empty")
