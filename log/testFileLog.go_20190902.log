@@ -1,0 +1,2 @@
+2019-09-02 22:45:54 LogDebug E:/study_go/src/listen17/testFileLog.go:main.main[line:12] :user id[123] is come from china
+2019-09-02 22:45:54 LogError E:/study_go/src/listen17/testFileLog.go:main.main[line:13] :test error

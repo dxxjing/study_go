@@ -7,9 +7,9 @@ func main(){
 	//logger.InitLog("file")
 	logger.InitLog("console")
 
-	logger.LogDebug("user id[%d] is come from china",123)
-	logger.LogError("test error")
-	logger.LogWarn("test warn log")
-	logger.LogFatal("test fatal")
+	logger.Debug("user id[%d] is come from china",123)
+	logger.Error("test error")
+	logger.Warn("test warn log")
+	logger.Fatal("test fatal")
 
 }

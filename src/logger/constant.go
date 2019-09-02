@@ -17,4 +17,6 @@ const (
 
 	LogPath = "e:/study_go/log/"
 	LogErrorFilePath = LogPath + "err.log"
+
+	MaxChanSize = 50000
 )

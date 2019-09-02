@@ -5,6 +5,17 @@ import (
 	"time"
 )
 
+//异步文件日志
+type LogChanData struct{
+	Msg string
+	TimeStr string
+	LevelName string
+	FileName string
+	FuncName string
+	LineNo int
+}
+
+
 //获取当前时间格式 2019-09-02 09:34:45
 func getNowDate() string {
 	return time.Now().Format(LogTimeFormat)
