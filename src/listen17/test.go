@@ -4,7 +4,7 @@ import (
 	"logger"
 	"os"
 )
-
+//使用filelog 日志
 func main(){
 	logPath := "e:/study_go/log/"
 	_ = os.MkdirAll(logPath,0777)
