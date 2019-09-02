@@ -7,7 +7,7 @@ import (
 
 //获取当前时间格式 2019-09-02 09:34:45
 func getNowDate() string {
-	return time.Now().Format(LogFormat)
+	return time.Now().Format(LogTimeFormat)
 }
 
 //获取日志级别对用的名字
