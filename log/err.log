@@ -1,3 +1,3 @@
-2019-09-02 22:45:54 LogWarn E:/study_go/src/listen17/testFileLog.go:main.main[line:14] :test warn log
-2019-09-02 22:45:54 LogFatal E:/study_go/src/listen17/testFileLog.go:main.main[line:15] :test fatal
-2019-09-02 22:53:29 LogDebug E:/study_go/src/listen17/testFileLog.go:main.test[line:8] :user id[123] is come from china
+
+2019-09-02 23:00:17 LogDebug E:/study_go/src/listen17/testFileLog.go:main.test[line:8] :user id[123] is come from china
+2019-09-02 23:00:17 LogWarn E:/study_go/src/listen17/testFileLog.go:main.test[line:10] :test warn log

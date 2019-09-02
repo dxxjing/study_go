@@ -20,6 +20,7 @@ func NewFileLog() LoggerInterface {
 	logger := &FileLog{
 		chanData : make(chan *LogChanData,MaxChanSize),
 	}
+
 	return logger
 }
 
@@ -45,7 +46,6 @@ func (f *FileLog) init(fileName string){
 		panic(fmt.Sprintf("open %s failed,err:%v",LogErrorFilePath,err))
 	}
 	f.errFile = logFile
-
 	go f.writeLog()
 }
 
