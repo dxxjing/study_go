@@ -81,6 +81,23 @@ func (f *FileLog) initFile(fileName string){
 	f.errFile = logFile
 }
 
+//整合信息,写入日志文件
+func (f *FileLog) writeLog(format string,args ...interface{}){
+	nowTime := getNowDate()
+	levelName := getLogLevelName(f.level)
+	fileName,funcName,lineNo := getCallerInfo(3)
+	funcName = path.Base(funcName)
+	msg := fmt.Sprintf(format,args...)
+	logMsg := fmt.Sprintf("%s %s %s:%s[line:%d] :%s\n",nowTime,levelName,fileName,funcName,lineNo,msg)
+
+	f.initFile(fileName)
+	logFile := f.file
+	if f.level == LogLevelError || f.level == LogLevelFatal {
+		logFile = f.errFile
+	}
+	fmt.Fprintf(logFile,logMsg)
+}
+
 func (f *FileLog) SetLevel(logLevel int){
 	if logLevel < LogLevelDebug || logLevel > LogLevelFatal {
 		logLevel = LogLevelDebug
@@ -119,19 +136,3 @@ func (f *FileLog) Close(){
 	f.errFile.Close()
 }
 
-//整合信息,写入日志文件
-func (f *FileLog) writeLog(format string,args ...interface{}){
-	nowTime := getNowDate()
-	levelName := getLogLevelName(f.level)
-	fileName,funcName,lineNo := getCallerInfo(3)
-	funcName = path.Base(funcName)
-	msg := fmt.Sprintf(format,args...)
-	logMsg := fmt.Sprintf("%s %s %s:%s[line:%d] :%s\n",nowTime,levelName,fileName,funcName,lineNo,msg)
-
-	f.initFile(fileName)
-	logFile := f.file
-	if f.level == LogLevelError || f.level == LogLevelFatal {
-		logFile = f.errFile
-	}
-	fmt.Fprintf(logFile,logMsg)
-}
