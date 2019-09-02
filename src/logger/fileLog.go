@@ -27,13 +27,13 @@ func NewFileLog() LoggerInterface {
 		//logName : logName,
 	}
 
-	//logger.initFile_v2()
+	//logger.init_v2()
 
 	return logger
 }
 
 /*
-func (f *FileLog) initFile_v2(){
+func (f *FileLog) init_v2(){
 	//目录需提前创建好 os.O_CREAT只会创建不存在的文件不会创建目录
 	//或者使用os.MkdirAll 进行创建
 	//todo 改造点1：warn以及warn以下的日志 根据调用文件、日期创建不同的logfile 如 test_20190902.log
@@ -55,8 +55,8 @@ func (f *FileLog) initFile_v2(){
 }
 */
 
-//initFile_v2 的两个改造点 在此实现
-func (f *FileLog) initFile(fileName string){
+//init_v2 的两个改造点 在此实现
+func (f *FileLog) init(fileName string){
 	//暂时将日子存放此目录下
 	// todo 根据调用者目录 自动生成log 层级目录 e:/study_go/src/listen17/testFileLog.go => e:/study_go/log/listen17/testFileLog.go_20180903.log
 	logPath := "e:/study_go/log/"
@@ -90,7 +90,7 @@ func (f *FileLog) writeLog(format string,args ...interface{}){
 	msg := fmt.Sprintf(format,args...)
 	logMsg := fmt.Sprintf("%s %s %s:%s[line:%d] :%s\n",nowTime,levelName,fileName,funcName,lineNo,msg)
 
-	f.initFile(fileName)
+	f.init(fileName)
 	logFile := f.file
 	if f.level == LogLevelError || f.level == LogLevelFatal {
 		logFile = f.errFile
