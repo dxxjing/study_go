@@ -3,10 +3,29 @@ package iniConfig
 import (
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"reflect"
 	"strconv"
 	"strings"
 )
+
+func MarshalFile(filename string, data interface{}) (err error) {
+	result, err := Marshal(data)
+	if err != nil {
+		return
+	}
+
+	return ioutil.WriteFile(filename, result, 0755)
+}
+
+func UnMarshalFile(filename string, result interface{}) (err error) {
+	data, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return
+	}
+
+	return UnMarshal(data, result)
+}
 
 func Marshal(data interface{}) (result []byte,err error){
 	//判断传入的是否为结构体
@@ -53,7 +72,7 @@ func Marshal(data interface{}) (result []byte,err error){
 	}
 	return
 }
-
+//result 必须传入指针 因为结构体是值类型且要用反射设置结构体字段的值
 func UnMarshal(iniData []byte,result interface{}) (err error) {
 	iniSlice := strings.Split(string(iniData),"\n")
 	vType := reflect.TypeOf(result)
@@ -102,7 +121,7 @@ func parseItem(lastFieldName,line string,result interface{}) (err error){
 	//取出等号两边的key val
 	key := strings.TrimSpace(line[0:index])
 	val := strings.TrimSpace(line[index+1:])
-	if len(key) == 0 || len(val) == 0 {
+	if len(key) == 0{
 		err = fmt.Errorf("sytax error, line:%s", line)
 		return
 	}

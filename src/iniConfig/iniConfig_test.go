@@ -44,3 +44,24 @@ func TestIniConfig(t *testing.T){
 	}
 	fmt.Println("marshal:",string(confData))
 }
+
+func TestIniConfigFile(t *testing.T) {
+
+	filename := "./test.conf"
+	var conf Config
+	conf.SrvConf.Ip = "localhost"
+	conf.SrvConf.Port = 88888
+	err := MarshalFile(filename, conf)
+	if err != nil {
+		t.Errorf("marshal failed, err:%v", err)
+		return
+	}
+
+	var conf2 Config
+	err = UnMarshalFile(filename, &conf2)
+	if err != nil {
+		t.Errorf("unmarshal failed, err:%v", err)
+	}
+
+	t.Logf("unmarshal succ, conf:%#v", conf2)
+}
