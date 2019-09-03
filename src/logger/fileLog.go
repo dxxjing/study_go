@@ -30,7 +30,7 @@ func NewFileLog() LoggerInterface {
 	return logger
 }
 
-func (f *FileLog) init(fileName string,level int){
+func (f *FileLog) initFile(fileName string,level int){
 	//暂时将日子存放此目录下
 	// todo 根据调用者目录 自动生成log 层级目录 e:/study_go/src/listen17/testFileLog.go => e:/study_go/log/listen17/testFileLog.go_20180903.log
 	logPath := LogPath //可以写在配置中
@@ -84,7 +84,7 @@ func (f *FileLog) insertLogDataToChan(level int,format string,args ...interface{
 //整合信息,写入日志文件
 func (f *FileLog) writeLog(){
 	for data := range f.chanData {
-		f.init(data.FileName,data.Level)
+		f.initFile(data.FileName,data.Level)
 		logFile := f.file
 		if data.Level == LogLevelError || data.Level == LogLevelFatal {
 			logFile = f.errFile
