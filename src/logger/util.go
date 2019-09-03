@@ -9,7 +9,7 @@ import (
 type LogChanData struct{
 	Msg string
 	TimeStr string
-	LevelName string
+	Level int
 	FileName string
 	FuncName string
 	LineNo int
