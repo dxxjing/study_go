@@ -30,11 +30,17 @@ func TestIniConfig(t *testing.T){
 	if err != nil {
 		t.Error("read file err")
 	}
-	var config Config
-	err = UnMarshal(data,&config)
+	var conf Config
+	err = UnMarshal(data,&conf)
 	if err != nil {
 		t.Errorf("unmarshal err:%v\n",err)
 	}
-	//fmt.Println(config)
+	fmt.Println("unmarshal:",conf)
 	//{{10.238.2.2 8080} {root root test 192.168.1.1 3838 1.2}}
+
+	confData, err := Marshal(conf)
+	if err != nil {
+		t.Errorf("marshal failed, err:%v", err)
+	}
+	fmt.Println("marshal:",string(confData))
 }

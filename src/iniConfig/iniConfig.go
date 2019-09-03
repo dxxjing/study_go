@@ -8,8 +8,49 @@ import (
 	"strings"
 )
 
-func Marshal(data interface{}) (res []byte,err error){
+func Marshal(data interface{}) (result []byte,err error){
+	//判断传入的是否为结构体
+	typeInfo := reflect.TypeOf(data)
+	if typeInfo.Kind() != reflect.Struct {
+		err = errors.New("please pass struct")
+		return
+	}
+	var conf []string
+	//遍历Config中的字段
+	valueInfo := reflect.ValueOf(data)
+	for i := 0; i < typeInfo.NumField(); i++ {
+		//取出key val
+		sectionKey := typeInfo.Field(i)
+		sectionVal := valueInfo.Field(i)
 
+		fieldType := sectionKey.Type
+		if fieldType.Kind() != reflect.Struct {
+			continue
+		}
+		tagVal := sectionKey.Tag.Get("ini")
+		if len(tagVal) == 0 {
+			tagVal = sectionKey.Name
+		}
+
+		section := fmt.Sprintf("\n[%s]\n", tagVal)
+		conf = append(conf, section)
+		//遍历ServerConfig 或 MysqlConfig中的字段
+		for j := 0; j < fieldType.NumField(); j++ {
+			keyField := fieldType.Field(j)
+			fieldTagVal := keyField.Tag.Get("ini")
+			if len(fieldTagVal) == 0 {
+				fieldTagVal = keyField.Name
+			}
+
+			valField := sectionVal.Field(j)
+			item := fmt.Sprintf("%s=%v\n", fieldTagVal, valField.Interface())
+			conf = append(conf, item)
+		}
+	}
+	for _, val := range conf {
+		byteVal := []byte(val)
+		result = append(result, byteVal...)
+	}
 	return
 }
 
