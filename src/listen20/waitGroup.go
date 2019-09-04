@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-//父线程 等待所有子线程执行完再执行
+//sync.WaitGroup 实现 父线程 等待所有子线程执行完再执行
 
 func sonv1(wg *sync.WaitGroup){
 	defer wg.Done()
