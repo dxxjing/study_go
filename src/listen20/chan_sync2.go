@@ -34,7 +34,7 @@ func main(){
 
 	//todo for range完毕 程序执行完会报错 fatal error: all goroutines are asleep - deadlock!
 	/*初步预测：由于主程序不知道何时停止从管道读取数据 且读取两次后 所有子协程都已结束，
-		主程序仍在等待从管道读取数据 导致死锁
+		主程序仍在等待从管道读取数据 导致死锁deadlock
 	*****解决办法：使用固定次数的for循环
 	for v := range done {
 		fmt.Println(v)
