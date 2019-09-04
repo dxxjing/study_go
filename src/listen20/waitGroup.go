@@ -37,4 +37,5 @@ func main(){
 
 	wg.Wait()
 	fmt.Println("all son work done")
+	
 }
