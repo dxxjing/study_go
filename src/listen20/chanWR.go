@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-//该协程只负责写入 不能读取 在写入的函数中关闭channel
+//生产者--该协程只负责写入 不能读取 在写入的函数中关闭channel
 func writeChan(ch chan<- int,wg *sync.WaitGroup){
 	for i := 0; i < 10; i++{
 		ch <- i
@@ -17,7 +17,7 @@ func writeChan(ch chan<- int,wg *sync.WaitGroup){
 	wg.Done()
 }
 
-//该协程负责读取 不能写入
+//消费者--该协程负责读取 不能写入
 func readChan(ch <-chan int,wg *sync.WaitGroup){
 	for v := range ch {
 		fmt.Println(v)
