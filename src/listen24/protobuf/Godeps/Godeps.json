@@ -1,0 +1,12 @@
+{
+	"ImportPath": "listen24/protobuf",
+	"GoVersion": "go1.12",
+	"GodepVersion": "v80",
+	"Deps": [
+		{
+			"ImportPath": "github.com/golang/protobuf/proto",
+			"Comment": "v1.3.2-2-g822fe569",
+			"Rev": "822fe56949f5d56c9e2f02367c657e0e9b4d27d1"
+		}
+	]
+}
