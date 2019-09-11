@@ -14,9 +14,7 @@ type Respack struct{
 	err error
 }
 
-var wg *sync.WaitGroup
-
-func work(ctx context.Context){
+func work(ctx context.Context,wg *sync.WaitGroup){
 	defer wg.Done()
 
 	tr := &http.Transport{}
@@ -34,7 +32,7 @@ func work(ctx context.Context){
 
 	select{
 	case <-ctx.Done():
-		//tr.CancelRequest() 该函数已废弃
+		//tr.CancelRequest() 该函数已废弃 不用该函数也能正常结束
 		<-c
 		fmt.Println("time out")
 		return
@@ -50,12 +48,12 @@ func work(ctx context.Context){
 }
 
 func main(){
-
+	var wg sync.WaitGroup
 	ctx,cancel := context.WithTimeout(context.Background(),2 * time.Second)
 	defer cancel()
 
 	wg.Add(1)
-	go work(ctx)
+	go work(ctx,&wg)
 	wg.Wait()
 
 	fmt.Println("finished")
