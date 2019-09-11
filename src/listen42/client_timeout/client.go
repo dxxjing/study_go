@@ -31,7 +31,7 @@ func work(ctx context.Context,wg *sync.WaitGroup){
 	}()
 
 	select{
-	case <-ctx.Done():
+	case <-ctx.Done(): //超时返回
 		//tr.CancelRequest() 该函数已废弃 不用该函数也能正常结束
 		<-c
 		fmt.Println("time out")
